@@ -125,7 +125,7 @@ export function AppInput({
             />
           </button>
           {menuOpen && (
-            <div className="mt-2 rounded-md border border-border bg-card shadow-[var(--shadow-soft)] overflow-y-auto max-h-[480px]">
+            <div className="mt-2 rounded-md border border-border bg-card shadow-[var(--shadow-soft)] overflow-y-auto max-h-[300px]">
               {knownApps.length === 0 && (
                 <div className="px-4 py-3 text-xs text-muted-foreground">
                   No known apps in the library yet.

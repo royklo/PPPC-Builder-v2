@@ -34,9 +34,18 @@ export default function App() {
   const [knownApps, setKnownApps] = useState<KnownApp[]>([]);
   const { state: auth, signIn, signOut } = useAuth();
 
-  // Load the runtime-editable known apps list from /library/known-apps.json
+  // Load the runtime-editable known apps list from /library/known-apps.json,
+  // sorted alphabetically by displayName.
   useEffect(() => {
-    void loadKnownApps().then(setKnownApps);
+    void loadKnownApps().then((list) =>
+      setKnownApps(
+        [...list].sort((a, b) =>
+          a.displayName.localeCompare(b.displayName, undefined, {
+            sensitivity: 'base',
+          }),
+        ),
+      ),
+    );
   }, []);
   const [toast, setToast] = useState<{ kind: 'ok' | 'err'; message: string } | null>(null);
   const previousAccount = useRef(auth.account);
