@@ -34,11 +34,6 @@ const TENANT_ID_KEY = 'pppc.intuneTenantId';
 const BUILTIN_CLIENT_ID = (import.meta.env.VITE_AZURE_CLIENT_ID ?? '').trim();
 const BUILTIN_TENANT_ID = (import.meta.env.VITE_AZURE_TENANT_ID ?? 'organizations').trim();
 
-/** Whether a built-in app registration is available (no user setup required). */
-export function hasBuiltinAppRegistration(): boolean {
-  return BUILTIN_CLIENT_ID.length > 0;
-}
-
 /**
  * Resolve the active Client ID.
  *  1. VITE_AZURE_CLIENT_ID env var — always wins when set.

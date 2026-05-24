@@ -1,142 +1,105 @@
-# PPPC Builder – Create macOS Privacy Policies for Intune
+# PPPC Builder
 
-🌐 Webapp: https://www.simsenblog.dk/pppc-builder/
+Generate macOS **Privacy Preferences Policy Control (PPPC)** `.mobileconfig`
+profiles and deploy them straight to **Microsoft Intune** — all from the
+browser. No Jamf, no manual XML, no per-user downloads.
 
-PPPC Builder is a simple web-based tool that helps you generate **Privacy Preferences Policy Control (PPPC)** `.mobileconfig` files for macOS.
-
-The goal is straightforward:
-
-> Make it easy to create macOS permission policies that can be deployed with Microsoft Intune.
-
-No Jamf dependencies.  
-No complex profile editors.  
-Just generate the profile you need — and deploy it.
+A 100% client-side React app. Profiles are generated in your browser;
+Intune deployment happens directly between your browser and Microsoft Graph
+using your own Entra ID sign-in.
 
 ---
 
-## 🚀 What Problem Does This Solve?
+## What it does
 
-Managing macOS permissions in enterprise environments can be time-consuming and error-prone.
-
-Permissions such as:
-
-- Screen Recording  
-- Full Disk Access  
-- Camera  
-- Microphone  
-- Accessibility  
-- Files & Folders  
-- System Extensions  
-
-require properly formatted configuration profiles (`.mobileconfig`).
-
-Creating these manually can be:
-- Tedious
-- Easy to misconfigure
-- Difficult to validate
-
-PPPC Builder simplifies this by allowing you to:
-
-1. Upload/select an application
-2. Choose required permissions
-3. Generate a ready-to-deploy `.mobileconfig` file
+- **Build** a `.mobileconfig` that grants/denies macOS privacy permissions
+  (Accessibility, Full Disk Access, Screen Recording, Microphone, Camera,
+  Automation/Apple Events, Contacts, Calendars, Photos, Bluetooth, Removable
+  Volumes) for one or more apps.
+- **Auto-fills** the designated code requirement for known apps (Teams, Zoom,
+  Edge, Chrome, Slack). Upload an `Info.plist` or zipped `.app` to add any
+  other app.
+- Apply Apple's MDM rules automatically: permissions that Apple won't let MDM
+  force (Screen Recording, Microphone, Camera) are locked to
+  *Allow standard user to enable*.
+- **Output one bundled profile** (all apps in one `.mobileconfig`), **or one
+  profile per app** (downloaded as a ZIP, deployed as separate Intune
+  policies).
+- **Deploy directly to Intune** via Microsoft Graph: creates one
+  `macOSCustomConfiguration` per profile, with your choice of scope tags,
+  deployment channel, and assignment (no assignment / all users / all
+  devices / groups with include/exclude + per-group assignment filters).
 
 ---
 
-## ✨ Features
+## How it works
 
-- 🌐 100% web-based – no installation required
-- 📦 Generates standard `.mobileconfig` profiles
-- 🎯 Focused on Microsoft Intune deployment
-- 🔐 Supports common macOS privacy permissions
-- ⚡ Lightweight and fast
-- 🧩 No Jamf-specific configuration
+The whole app is one page in two steps:
 
----
+### Step 1 — Build profiles
 
-## 🖥️ How It Works
+1. **Add apps** — drag-and-drop a `.zip` of an `.app` bundle, drop an
+   `Info.plist` directly, or pick from the built-in known-apps list.
+2. **Toggle permissions** per app. The authorization dropdown (Allow / Allow
+   standard user / Deny) is constrained by Apple's rules.
+3. **Pick output mode** — *Single bundle* (one `.mobileconfig` covering all
+   apps, default) or *Separate profiles* (one per app, with per-app metadata).
+4. The right rail shows a **live XML preview** with syntax highlighting and
+   an optional word-wrap. Multiple profiles appear as collapsible accordions,
+   collapsed by default so the Deploy step is one scroll away.
 
-1. Open the webapp
-   - https://www.simsenblog.dk/pppc-builder/
+### Step 2 — Deploy to Intune
 
-3. Select your macOS application  
-   - Choose a **pre-defined app** from the list  
-   **or**  
-   - Upload the app’s `Info.plist` file  
+1. **Sign in** with Entra ID (top-right button). MSAL handles the redirect;
+   tokens stay in your browser.
+2. **Name each policy** — bundle mode = one row, separate mode = one row per
+   app plus an optional bulk-rename pattern (`{appName}`, `{bundleId}`).
+3. Pick **scope tags** (multi-select, defaults to *Default*) and the
+   **deployment channel** (device or user) per policy.
+4. Configure **assignment per policy** — none, all users, all devices, or
+   groups (include/exclude). Each include group can have its own assignment
+   filter. *Copy to all* mirrors one policy's assignment onto every other.
+5. Click **Deploy** — each policy is created via `POST
+   /beta/deviceManagement/deviceConfigurations` and assigned via `POST
+   .../assign`. Results appear in-line with deep links to the Intune portal.
 
-   To get the `Info.plist` file:
-   - Locate the application in Finder (e.g. `/Applications`)
-   - Right-click the app
-   - Select **Show Package Contents**
-   - Open the `Contents` folder
-   - Find and upload `Info.plist`
+### Or just download
 
-4. Choose the required permissions  
-   Example:
-   - Screen Recording (Standard user can toggle)
-   - Full Disk Access
-   - Accessibility
-
-5. Download the generated `.mobileconfig` file
-
-6. Upload to Microsoft Intune:
-   - Go to **Intune Admin Center**
-   - Devices → macOS → Configuration profiles
-   - Create profile → Templates → Custom
-   - Upload the generated file
-
-Done.
+If you don't want to give the tool access to your tenant, the Download
+button gives you the same `.mobileconfig` (or a ZIP for separate mode) ready
+for manual upload to Intune Custom Configuration profiles.
 
 ---
 
-## 📦 Deployment with Microsoft Intune
+## Security & privacy
 
-This tool is built specifically with Intune in mind.
-
-After generating the profile:
-
-- Create a **macOS Custom Configuration Profile**
-- Upload the `.mobileconfig`
-- Assign to device or user groups
-
-The profile will enforce the configured permissions on macOS devices.
-
----
-
-## ⚠️ Important Notes
-
-- Some permissions can only allow **user-approved toggling** (Apple limitation).
-- Not all privacy services support forced enablement.
-- Ensure your app is properly signed and identifiable (Bundle ID).
-
-Always test in a pilot group before broad deployment.
+- **100% client-side.** The Vite-built static bundle runs entirely in your
+  browser. No backend, no analytics, no telemetry, no proxy.
+- **MSAL tokens** live in `localStorage` (required by the popup callback
+  flow). Sign out clears them. They're never sent to any server other than
+  Microsoft.
+- **Graph calls go direct** from your browser to `graph.microsoft.com`.
+- **No Client Secret** — the app uses the SPA + PKCE OAuth flow. Only your
+  Entra app's *public* Client ID is in the build.
 
 ---
 
-## 🎯 Target Audience
+## Required Entra permissions
 
-- Microsoft Intune administrators
-- macOS endpoint engineers
-- Modern Workplace consultants
-- Security teams managing macOS via MDM
+The app requests these **delegated** scopes on sign-in:
 
-If you're running macOS in an Intune-managed environment — this is for you.
+| Scope | Why |
+|---|---|
+| `DeviceManagementConfiguration.ReadWrite.All` | Create / update device configuration profiles |
+| `DeviceManagementRBAC.Read.All` | Read scope tag list |
+| `Group.Read.All` | Search security groups for assignment |
+| `User.Read` | Show your name in the top bar |
 
----
-
-## 🔍 Why This Tool?
-
-There are existing tools in the ecosystem, but many are Jamf-focused.
-
-This project is intentionally:
-- Intune-first
-- Lightweight
-- Easy to use
-- Focused only on app-level PPPC configuration
+All four require admin consent at first use in your tenant.
 
 ---
 
-## 🛠️ Local development
+## Local development
 
 ```bash
 npm install
@@ -144,50 +107,93 @@ cp .env.example .env.local        # paste your Entra Client ID
 npm run dev                       # http://localhost:5173
 ```
 
-`npm run build` produces a static bundle in `dist/` that you can host
-anywhere.
+The local dev server uses `VITE_AZURE_CLIENT_ID` from `.env.local` (or any
+shell env). The Entra app reg must include `http://localhost:5173/` as an
+SPA redirect URI.
+
+### Useful scripts
+
+| Script | What it does |
+|---|---|
+| `npm run dev` | Vite dev server with HMR |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Serve the built bundle locally |
+| `npm run typecheck` | TS type-check without emit |
+| `npx tsx scripts/verify-equivalence.mts` | Regression test — confirms the generator's XML output stays byte-identical to the legacy v2 generator across 5 fixture cases |
 
 ---
 
-## 🚢 Deploying to GitHub Pages
+## Deploying to GitHub Pages
 
-The repo ships with a workflow at `.github/workflows/deploy.yml` that builds
-and publishes to GitHub Pages on every push to `main`.
+The repo ships with `.github/workflows/deploy.yml` — push to `main` and a
+fresh build is deployed to GitHub Pages.
 
 **One-time setup:**
 
-1. **GitHub repo settings → Pages**: source = *GitHub Actions*.
-2. **GitHub repo settings → Secrets and variables → Actions**:
-   - Add secret `AZURE_CLIENT_ID` = your Entra app's Application (client) ID
-   - (Optional) Add secret `AZURE_TENANT_ID` = a specific tenant ID, or leave
-     unset to allow any work/school tenant (`organizations`)
-   - (Optional) Add variable `BASE_PATH` = `/` if you use a user-page
-     (`username.github.io`) or a custom domain. Defaults to `/{repo-name}/`.
-3. **Entra app registration** → Authentication → Single-page application →
-   add the deployed URL as a redirect URI (with trailing slash):
-   `https://<user>.github.io/<repo>/`
-
-Then push to `main` — the workflow builds with `VITE_AZURE_CLIENT_ID` baked
-in and publishes `dist/` to Pages.
-
----
-
-## 🤝 Contributing
-
-If you have feature ideas, improvements, or feedback — feel free to reach out.
-
-You can also connect via:
-- LinkedIn
-- SimsenBlog.dk
+1. **Repo Settings → Pages**: Source = *GitHub Actions*.
+2. **Repo Settings → Secrets and variables → Actions** → *Repository
+   secrets*:
+   - `AZURE_CLIENT_ID` = your Entra app's Application (client) ID
+   - (Optional) `AZURE_TENANT_ID` = a specific tenant ID. Omit to keep the
+     default (`organizations`, any work/school tenant).
+3. (Optional) **Variables tab** → `BASE_PATH = "/"` if you publish to a
+   user/org page (`username.github.io`) or a custom domain. Defaults to
+   `/{repo-name}/` for project pages.
+4. **Entra app registration → Authentication → Single-page application** →
+   add the deployed URL with trailing slash as a redirect URI, e.g.
+   `https://<user>.github.io/<repo>/`.
 
 ---
 
-## 📄 License
+## Project layout
 
-Provided as-is.  
-Test before production use.
+```
+src/
+  App.tsx                  app shell, step routing, MSAL wiring
+  main.tsx                 bootstrap; runs MSAL.handleRedirectPromise
+                           and applies theme before React mounts
+  components/              presentational components
+  lib/
+    permissions.ts         PPPC permission catalog + TCC service names
+    knownApps.ts           bundled designated code requirements
+    plist.ts               minimal Info.plist parser
+    files.ts               .zip / .plist upload handling
+    mobileconfig.ts        XML generator (byte-equivalent to v2)
+    profiles.ts            wraps generator with bundle/separate logic
+    state.ts               app entry defaults + helpers
+    types.ts               shared types
+    auth/                  MSAL setup + useAuth hook + scopes
+    graph.ts               thin Microsoft Graph fetch wrapper
+    assignments.ts         Intune assignment config + body builder
+    deploy.ts              create profile + assign + portal URL
+    theme.ts               light/dark theme handling
+legacy/                    original vanilla-JS v2 app (read-only reference)
+scripts/
+  verify-equivalence.mts   regression test against legacy generator
+```
 
 ---
 
-Built for modern macOS management.  
-Made simple for Intune.
+## Caveats
+
+- Some macOS permissions can only allow **user-approved toggling** (Apple
+  limitation — Screen Recording, Microphone, Camera).
+- Generated profiles are **unsigned**. Intune doesn't require signing for
+  custom configuration profiles.
+- Intune portal's per-policy deep links sometimes don't render assignment
+  filters on first load — refresh once and they appear. Not a tool bug.
+
+---
+
+## Credits
+
+Original vanilla-JS implementation by Roy Klooster. Rewritten as a React +
+Vite SPA with direct Intune deploy.
+
+Connect via [SimsenBlog.dk](https://www.simsenblog.dk) or LinkedIn.
+
+---
+
+## License
+
+Provided as-is. Test in a pilot group before broad deployment.

@@ -82,9 +82,5 @@ export function useAuth() {
     }
   }, []);
 
-  const refreshClientIdConfigured = useCallback(() => {
-    setState((s) => ({ ...s, clientIdConfigured: !!getStoredClientId() }));
-  }, []);
-
-  return { state, signIn, signOut, refreshClientIdConfigured };
+  return { state, signIn, signOut };
 }

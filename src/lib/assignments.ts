@@ -1,5 +1,3 @@
-import type { AssignmentFilter, GraphGroup } from './graph';
-
 export type AssignmentMode = 'none' | 'allUsers' | 'allDevices' | 'groups';
 
 export interface AssignmentFilterRef {
@@ -86,15 +84,4 @@ export function buildAssignmentBody(cfg: AssignmentConfig): {
   }
 
   return { assignments };
-}
-
-/** Convert a raw Graph group/filter into a brief one-line label for UI. */
-export function summarizeGroup(g: GraphGroup): string {
-  const tags: string[] = [];
-  if (g.groupTypes.includes('DynamicMembership')) tags.push('dynamic');
-  return tags.length ? `${g.displayName} (${tags.join(', ')})` : g.displayName;
-}
-
-export function summarizeFilter(f: AssignmentFilter): string {
-  return f.displayName;
 }
