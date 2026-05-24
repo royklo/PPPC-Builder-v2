@@ -1,19 +1,104 @@
 {
   "apps": [
     {
-      "bundleId": "com.microsoft.teams",
-      "displayName": "Microsoft Teams",
-      "codeRequirement": "identifier \"com.microsoft.teams\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+      "bundleId": "com.agilebits.onepassword7",
+      "displayName": "1Password 7",
+      "codeRequirement": "anchor apple generic and identifier \"com.agilebits.onepassword7\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"2BUA8C4S2C\")"
     },
     {
-      "bundleId": "us.zoom.xos",
-      "displayName": "Zoom",
-      "codeRequirement": "identifier \"us.zoom.xos\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3"
+      "bundleId": "com.airtame.airtame-application",
+      "displayName": "Airtame",
+      "codeRequirement": "identifier \"com.airtame.airtame-application\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"4TPSP88HN2\""
     },
     {
-      "bundleId": "com.microsoft.edgemac",
-      "displayName": "Microsoft Edge",
-      "codeRequirement": "identifier \"com.microsoft.edgemac\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+      "bundleId": "com.amazon.Amazon-Chime",
+      "displayName": "Amazon Chime",
+      "codeRequirement": "identifier \"com.amazon.Amazon-Chime\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"94KV3E626L\""
+    },
+    {
+      "bundleId": "com.philandro.anydesk",
+      "displayName": "AnyDesk",
+      "codeRequirement": "identifier \"com.philandro.anydesk\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = KU6W3B6JMZ"
+    },
+    {
+      "bundleId": "company.thebrowser.Browser",
+      "displayName": "Arc",
+      "codeRequirement": "anchor apple generic and identifier \"company.thebrowser.Browser\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = S6N382Y83G)"
+    },
+    {
+      "bundleId": "com.barco.clickshare",
+      "displayName": "Barco ClickShare",
+      "codeRequirement": "identifier \"com.barco.clickshare\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = P6CDJZR997"
+    },
+    {
+      "bundleId": "com.bomgar.bomgar-scc",
+      "displayName": "BeyondTrust Customer Client",
+      "codeRequirement": "identifier \"com.bomgar.bomgar-scc\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = B65TM49E24"
+    },
+    {
+      "bundleId": "com.bomgar.bomgar-rep-hcl",
+      "displayName": "BeyondTrust Remote Support (Rep)",
+      "codeRequirement": "identifier \"com.bomgar.bomgar-rep-hcl\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = B65TM49E24"
+    },
+    {
+      "bundleId": "com.bitwarden.desktop",
+      "displayName": "Bitwarden",
+      "codeRequirement": "identifier \"com.bitwarden.desktop\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = LTZ2PFU5D6"
+    },
+    {
+      "bundleId": "com.bluejeansnet.Blue",
+      "displayName": "BlueJeans",
+      "codeRequirement": "identifier \"com.bluejeansnet.Blue\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HE4P42JBGN"
+    },
+    {
+      "bundleId": "com.cisco.Jabber",
+      "displayName": "Cisco Jabber",
+      "codeRequirement": "identifier \"com.cisco.Jabber\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP"
+    },
+    {
+      "bundleId": "com.cisco.webexmeetingsapp",
+      "displayName": "Cisco Webex Meetings",
+      "codeRequirement": "identifier \"com.cisco.webexmeetingsapp\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP"
+    },
+    {
+      "bundleId": "com.anthropic.claudefordesktop",
+      "displayName": "Claude",
+      "codeRequirement": "identifier \"com.anthropic.claudefordesktop\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Q6L2SF6YDW"
+    },
+    {
+      "bundleId": "pl.maketheweb.cleanshotx",
+      "displayName": "CleanShot X",
+      "codeRequirement": "anchor apple generic and identifier \"pl.maketheweb.cleanshotx\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = AFJU4P8ZV4)"
+    },
+    {
+      "bundleId": "com.microsoft.CompanyPortalMac",
+      "displayName": "Company Portal",
+      "codeRequirement": "identifier \"com.microsoft.CompanyPortalMac\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.todesktop.230313mzl4w4u92",
+      "displayName": "Cursor",
+      "codeRequirement": "anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and (certificate leaf[subject.OU] = VDXQ22DGB9 or certificate leaf[subject.OU] = DCNK4UB866)"
+    },
+    {
+      "bundleId": "com.linguee.DeepLCopyTranslator",
+      "displayName": "DeepL",
+      "codeRequirement": "anchor apple generic and identifier \"com.linguee.DeepLCopyTranslator\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"4N8BGCG336\")"
+    },
+    {
+      "bundleId": "com.hnc.Discord",
+      "displayName": "Discord",
+      "codeRequirement": "identifier \"com.hnc.Discord\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"53Q6R32WPB\""
+    },
+    {
+      "bundleId": "com.displaylink.DisplayLinkUserAgent",
+      "displayName": "DisplayLink Manager",
+      "codeRequirement": "anchor apple generic and identifier \"com.displaylink.DisplayLinkUserAgent\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"73YQY62QM3\")"
+    },
+    {
+      "bundleId": "com.github.GitHubClient",
+      "displayName": "GitHub Desktop",
+      "codeRequirement": "identifier \"com.github.GitHubClient\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = VEKTX9H2N7"
     },
     {
       "bundleId": "com.google.Chrome",
@@ -21,9 +106,234 @@
       "codeRequirement": "identifier \"com.google.Chrome\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV"
     },
     {
+      "bundleId": "com.google.Chrome.beta",
+      "displayName": "Google Chrome Beta",
+      "codeRequirement": "identifier \"com.google.Chrome.beta\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV"
+    },
+    {
+      "bundleId": "com.google.Chrome.canary",
+      "displayName": "Google Chrome Canary",
+      "codeRequirement": "identifier \"com.google.Chrome.canary\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV"
+    },
+    {
+      "bundleId": "com.google.Chrome.dev",
+      "displayName": "Google Chrome Dev",
+      "codeRequirement": "identifier \"com.google.Chrome.dev\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV"
+    },
+    {
+      "bundleId": "com.logmein.g2ax.customer",
+      "displayName": "GoToAssist Customer",
+      "codeRequirement": "anchor apple generic and identifier \"com.logmein.g2ax.customer\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = GFNFVT632V)"
+    },
+    {
+      "bundleId": "com.logmein.GoToMeeting",
+      "displayName": "GoToMeeting",
+      "codeRequirement": "identifier \"com.logmein.GoToMeeting\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = GFNFVT632V"
+    },
+    {
+      "bundleId": "com.keepersecurity.passwordmanager",
+      "displayName": "Keeper Password Manager",
+      "codeRequirement": "identifier \"com.keepersecurity.passwordmanager\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"234QNB7GCA\""
+    },
+    {
+      "bundleId": "com.logmein.rescue",
+      "displayName": "LogMeIn Rescue",
+      "codeRequirement": "anchor apple generic and identifier \"com.logmein.rescue\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = GFNFVT632V)"
+    },
+    {
+      "bundleId": "com.microsoft.m365copilot",
+      "displayName": "Microsoft 365 Copilot",
+      "codeRequirement": "identifier \"com.microsoft.m365copilot\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.wdav",
+      "displayName": "Microsoft Defender",
+      "codeRequirement": "identifier \"com.microsoft.wdav\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.edgemac",
+      "displayName": "Microsoft Edge",
+      "codeRequirement": "identifier \"com.microsoft.edgemac\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.Excel",
+      "displayName": "Microsoft Excel",
+      "codeRequirement": "identifier \"com.microsoft.Excel\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.OneDrive",
+      "displayName": "Microsoft OneDrive",
+      "codeRequirement": "identifier \"com.microsoft.OneDrive\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.onenote.mac",
+      "displayName": "Microsoft OneNote",
+      "codeRequirement": "identifier \"com.microsoft.onenote.mac\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.Outlook",
+      "displayName": "Microsoft Outlook",
+      "codeRequirement": "identifier \"com.microsoft.Outlook\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.Powerpoint",
+      "displayName": "Microsoft PowerPoint",
+      "codeRequirement": "identifier \"com.microsoft.Powerpoint\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.remotehelp",
+      "displayName": "Microsoft Remote Help",
+      "codeRequirement": "identifier \"com.microsoft.remotehelp\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.teams2",
+      "displayName": "Microsoft Teams (new)",
+      "codeRequirement": "identifier \"com.microsoft.teams2\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.microsoft.Word",
+      "displayName": "Microsoft Word",
+      "codeRequirement": "identifier \"com.microsoft.Word\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.electron.realtimeboard",
+      "displayName": "Miro",
+      "codeRequirement": "identifier \"com.electron.realtimeboard\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = M3GM7MFY7U"
+    },
+    {
+      "bundleId": "org.mozilla.firefox",
+      "displayName": "Mozilla Firefox",
+      "codeRequirement": "identifier \"org.mozilla.firefox\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"43AQ936H96\""
+    },
+    {
+      "bundleId": "com.obsproject.obs-studio",
+      "displayName": "OBS Studio",
+      "codeRequirement": "identifier \"com.obsproject.obs-studio\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"2MMRE5MTB8\""
+    },
+    {
+      "bundleId": "com.postmanlabs.mac",
+      "displayName": "Postman",
+      "codeRequirement": "identifier \"com.postmanlabs.mac\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7H8Q7M5CK"
+    },
+    {
+      "bundleId": "com.apple.QuickTimePlayerX",
+      "displayName": "QuickTime Player",
+      "codeRequirement": "identifier \"com.apple.QuickTimePlayerX\" and anchor apple"
+    },
+    {
+      "bundleId": "com.raycast.macos",
+      "displayName": "Raycast",
+      "codeRequirement": "anchor apple generic and identifier \"com.raycast.macos\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = SY64MV22J9)"
+    },
+    {
+      "bundleId": "com.realvnc.vncserver_service",
+      "displayName": "RealVNC Server",
+      "codeRequirement": "identifier \"com.realvnc.vncserver_service\" and anchor apple generic"
+    },
+    {
+      "bundleId": "com.devolutions.remotedesktopmanager",
+      "displayName": "Remote Desktop Manager",
+      "codeRequirement": "identifier \"com.devolutions.remotedesktopmanager\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = N592S9ASDB"
+    },
+    {
+      "bundleId": "com.ringcentral.glip",
+      "displayName": "RingCentral",
+      "codeRequirement": "anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = M932RC5J66"
+    },
+    {
+      "bundleId": "com.carriez.rustdesk",
+      "displayName": "RustDesk",
+      "codeRequirement": "identifier \"com.carriez.rustdesk\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HZF9JMC8YN"
+    },
+    {
+      "bundleId": "com.apple.Safari",
+      "displayName": "Safari",
+      "codeRequirement": "identifier \"com.apple.Safari\" and anchor apple"
+    },
+    {
+      "bundleId": "net.telestream.screenflow9",
+      "displayName": "ScreenFlow 9",
+      "codeRequirement": "anchor apple generic and identifier \"net.telestream.screenflow9\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = WSG985FR47)"
+    },
+    {
       "bundleId": "com.tinyspeck.slackmacgap",
       "displayName": "Slack",
       "codeRequirement": "identifier \"com.tinyspeck.slackmacgap\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BQR82RBBHL"
+    },
+    {
+      "bundleId": "com.splashtop.Splashtop-SOS",
+      "displayName": "Splashtop SOS",
+      "codeRequirement": "identifier \"com.splashtop.Splashtop-SOS\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = CPQQ3AW49Y"
+    },
+    {
+      "bundleId": "com.splashtop.Splashtop-Streamer",
+      "displayName": "Splashtop Streamer",
+      "codeRequirement": "identifier \"com.splashtop.Splashtop-Streamer\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = CPQQ3AW49Y"
+    },
+    {
+      "bundleId": "com.spotify.client",
+      "displayName": "Spotify",
+      "codeRequirement": "identifier \"com.spotify.client\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"2FNC3A47ZF\""
+    },
+    {
+      "bundleId": "com.teamviewer.TeamViewer",
+      "displayName": "TeamViewer",
+      "codeRequirement": "anchor apple generic and identifier \"com.teamviewer.TeamViewer\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)"
+    },
+    {
+      "bundleId": "com.teamviewer.TeamViewerHost",
+      "displayName": "TeamViewer Host",
+      "codeRequirement": "anchor apple generic and identifier \"com.teamviewer.TeamViewerHost\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)"
+    },
+    {
+      "bundleId": "com.teamviewer.TeamViewerQS",
+      "displayName": "TeamViewer QuickSupport",
+      "codeRequirement": "anchor apple generic and identifier \"com.teamviewer.TeamViewerQS\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)"
+    },
+    {
+      "bundleId": "com.techsmith.camtasia2020",
+      "displayName": "TechSmith Camtasia 2020",
+      "codeRequirement": "identifier \"com.techsmith.camtasia2020\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"7TQL462TU8\""
+    },
+    {
+      "bundleId": "com.TechSmith.Snagit2022",
+      "displayName": "TechSmith Snagit 2022",
+      "codeRequirement": "anchor apple generic and identifier \"com.TechSmith.Snagit2022\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"7TQL462TU8\")"
+    },
+    {
+      "bundleId": "com.apple.Terminal",
+      "displayName": "Terminal",
+      "codeRequirement": "identifier \"com.apple.Terminal\" and anchor apple"
+    },
+    {
+      "bundleId": "com.microsoft.VSCode",
+      "displayName": "Visual Studio Code",
+      "codeRequirement": "identifier \"com.microsoft.VSCode\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9"
+    },
+    {
+      "bundleId": "com.vmware.fusion",
+      "displayName": "VMware Fusion",
+      "codeRequirement": "identifier \"com.vmware.fusion\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EG7KH642X6"
+    },
+    {
+      "bundleId": "com.webex.meetingmanager",
+      "displayName": "Webex Meeting Manager",
+      "codeRequirement": "identifier \"com.webex.meetingmanager\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP"
+    },
+    {
+      "bundleId": "net.whatsapp.WhatsApp",
+      "displayName": "WhatsApp",
+      "codeRequirement": "identifier \"net.whatsapp.WhatsApp\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"57T9237FN3\""
+    },
+    {
+      "bundleId": "com.microsoft.rdc.macos",
+      "displayName": "Windows App",
+      "codeRequirement": "(anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9) and identifier \"com.microsoft.rdc.macos\""
+    },
+    {
+      "bundleId": "us.zoom.xos",
+      "displayName": "Zoom",
+      "codeRequirement": "identifier \"us.zoom.xos\" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3"
     }
   ]
 }
