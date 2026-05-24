@@ -106,7 +106,7 @@ export function AppInput({
           </p>
         </label>
 
-        <div className="relative">
+        <div>
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
@@ -124,7 +124,7 @@ export function AppInput({
             />
           </button>
           {menuOpen && (
-            <div className="absolute z-10 mt-2 w-full rounded-md border border-border bg-card shadow-lg overflow-hidden">
+            <div className="mt-2 rounded-md border border-border bg-card shadow-[var(--shadow-soft)] overflow-hidden">
               {KNOWN_APPS.map((app) => {
                 const already = alreadySelectedBundleIds.includes(app.bundleId);
                 return (
@@ -134,7 +134,7 @@ export function AppInput({
                     disabled={already}
                     onClick={() => pickKnown(app.bundleId)}
                     className={cn(
-                      'w-full text-left px-4 py-2.5 text-sm hover:bg-background/60 transition',
+                      'w-full text-left px-4 py-2.5 text-sm hover:bg-card-elevated/60 transition border-b border-border/40 last:border-0',
                       already && 'opacity-50 cursor-not-allowed',
                     )}
                   >
