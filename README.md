@@ -12,16 +12,23 @@ using your own Entra ID sign-in.
 
 ## What it does
 
-- **Build** a `.mobileconfig` that grants/denies macOS privacy permissions
-  (Accessibility, Full Disk Access, Screen Recording, Microphone, Camera,
-  Automation/Apple Events, Contacts, Calendars, Photos, Bluetooth, Removable
-  Volumes) for one or more apps.
+- **Build** a `.mobileconfig` that grants/denies any of the
+  [24 PPPC services Apple exposes to MDM][apple-pppc] — covering Accessibility,
+  Full Disk Access (and the granular Desktop/Documents/Downloads/Network/
+  Removable/Admin folder variants), Camera, Microphone, Screen Recording,
+  Input Monitoring, Post Event, Bluetooth, Contacts, Calendars, Reminders,
+  Photos, Media Library, Speech Recognition, Apple Events/Automation
+  (with full receiver-app pairing), File Provider Presence, App Bundles, and
+  App Data — for one or more apps.
 - **Auto-fills** the designated code requirement for known apps (Teams, Zoom,
   Edge, Chrome, Slack). Upload an `Info.plist` or zipped `.app` to add any
   other app.
-- Apply Apple's MDM rules automatically: permissions that Apple won't let MDM
-  force (Screen Recording, Microphone, Camera) are locked to
-  *Allow standard user to enable*.
+- Apply Apple's MDM rules automatically: Camera and Microphone are restricted
+  to *Deny* (Apple ignores everything else for these); Screen Recording and
+  Input Monitoring are restricted to *Deny* or *Allow standard user to enable*
+  (force-Allow is not permitted via profile).
+
+[apple-pppc]: https://developer.apple.com/documentation/devicemanagement/privacypreferencespolicycontrol/services-data.dictionary
 - **Output one bundled profile** (all apps in one `.mobileconfig`), **or one
   profile per app** (downloaded as a ZIP, deployed as separate Intune
   policies).
@@ -120,7 +127,6 @@ SPA redirect URI.
 | `npm run build` | Production build → `dist/` |
 | `npm run preview` | Serve the built bundle locally |
 | `npm run typecheck` | TS type-check without emit |
-| `npx tsx scripts/verify-equivalence.mts` | Regression test — confirms the generator's XML output stays byte-identical to the legacy v2 generator across 5 fixture cases |
 
 ---
 
@@ -159,7 +165,7 @@ src/
     knownApps.ts           bundled designated code requirements
     plist.ts               minimal Info.plist parser
     files.ts               .zip / .plist upload handling
-    mobileconfig.ts        XML generator (byte-equivalent to v2)
+    mobileconfig.ts        XML generator for the TCC profile payload
     profiles.ts            wraps generator with bundle/separate logic
     state.ts               app entry defaults + helpers
     types.ts               shared types
@@ -169,16 +175,16 @@ src/
     deploy.ts              create profile + assign + portal URL
     theme.ts               light/dark theme handling
 legacy/                    original vanilla-JS v2 app (read-only reference)
-scripts/
-  verify-equivalence.mts   regression test against legacy generator
 ```
 
 ---
 
 ## Caveats
 
-- Some macOS permissions can only allow **user-approved toggling** (Apple
-  limitation — Screen Recording, Microphone, Camera).
+- Some macOS permissions cannot be force-granted from MDM (Apple limitation):
+  Camera and Microphone honour only *Deny*; Screen Recording and Input
+  Monitoring honour *Deny* or *Allow standard user to enable*. Everything
+  else gets the full Allow / Allow-standard-user / Deny dropdown.
 - Generated profiles are **unsigned**. Intune doesn't require signing for
   custom configuration profiles.
 - Intune portal's per-policy deep links sometimes don't render assignment

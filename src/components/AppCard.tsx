@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronRight, Trash2, ShieldCheck, AppWindow, RefreshCw } from 'lucide-react';
-import { PPPC_PERMISSIONS } from '@/lib/permissions';
+import { PPPC_PERMISSIONS, PERMISSION_CATEGORIES } from '@/lib/permissions';
 import { generateRandomUUID } from '@/lib/uuid';
 import type { OutputMode, PermissionState, SelectedApp } from '@/lib/types';
 import { PermissionRow } from './PermissionRow';
@@ -181,20 +181,31 @@ export function AppCard({
             </p>
           )}
         </div>
-        <div className="p-2">
-          {PPPC_PERMISSIONS.map((perm) => (
-            <PermissionRow
-              key={perm.id}
-              perm={perm}
-              state={
-                item.permissions[perm.id] ?? {
-                  enabled: false,
-                  authorization: 'Allow',
-                }
-              }
-              onChange={(next) => onChangePermission(perm.id, next)}
-            />
-          ))}
+        <div className="p-2 space-y-1">
+          {PERMISSION_CATEGORIES.map((cat) => {
+            const perms = PPPC_PERMISSIONS.filter((p) => p.category === cat.id);
+            if (perms.length === 0) return null;
+            return (
+              <div key={cat.id}>
+                <div className="px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground">
+                  {cat.label}
+                </div>
+                {perms.map((perm) => (
+                  <PermissionRow
+                    key={perm.id}
+                    perm={perm}
+                    state={
+                      item.permissions[perm.id] ?? {
+                        enabled: false,
+                        authorization: 'Allow',
+                      }
+                    }
+                    onChange={(next) => onChangePermission(perm.id, next)}
+                  />
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

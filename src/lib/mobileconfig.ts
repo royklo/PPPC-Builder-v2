@@ -1,19 +1,55 @@
 import { PPPC_PERMISSIONS } from './permissions';
 import { escapeXml } from './xml';
 import { generateRandomUUID } from './uuid';
-import type { ProfileSettings, SelectedApp } from './types';
+import type {
+  AppleEventReceiver,
+  Authorization,
+  AuthMode,
+  ProfileSettings,
+  SelectedApp,
+} from './types';
 
-interface ServiceEntry {
+interface StandardEntry {
+  kind: 'standard';
   bundleId: string;
   codeRequirement: string | null;
-  authorization: string;
-  canForceAllow: boolean;
+  authorization: Authorization;
+  authMode: AuthMode;
+}
+
+interface AppleEventsEntry {
+  kind: 'appleEvents';
+  bundleId: string;
+  codeRequirement: string | null;
+  receivers: AppleEventReceiver[];
+}
+
+type ServiceEntry = StandardEntry | AppleEventsEntry;
+
+/**
+ * Clamp the requested authorization to one that macOS actually honours for the
+ * service's authMode. Mirrors Jamf PPPCServices.json (denyOnly + allowStandardUsers).
+ */
+function effectiveAuthorization(mode: AuthMode, requested: Authorization): Authorization {
+  switch (mode) {
+    case 'standard':
+      return requested;
+    case 'denyOrStandardUser':
+      // Apple disallows force-Allow here; map anything non-Deny to standard-user grant.
+      return requested === 'Deny' ? 'Deny' : 'AllowStandardUserToSetSystemService';
+    case 'denyOnly':
+      // Anything other than Deny is silently ignored by macOS for these services.
+      return 'Deny';
+  }
+}
+
+function defaultCodeRequirement(bundleId: string): string {
+  return `identifier "${bundleId}" and anchor apple generic`;
 }
 
 /**
  * Build the inner Services-dict XML body from the selected apps' enabled permissions.
- * Returns null when no permissions are enabled (caller emits an empty profile).
- * Output indentation and field ordering match v2 byte-for-byte.
+ * Returns null when no service entries would be emitted.
  */
 function buildServicesDict(selectedApps: SelectedApp[]): string | null {
   const serviceGroups: Record<string, ServiceEntry[]> = {};
@@ -24,12 +60,27 @@ function buildServicesDict(selectedApps: SelectedApp[]): string | null {
       const perm = PPPC_PERMISSIONS.find((p) => p.id === permId);
       if (!perm) continue;
       const service = perm.tccService;
+
+      if (perm.tccService === 'AppleEvents') {
+        const receivers = state.receivers ?? [];
+        if (receivers.length === 0) continue; // skip — AppleEvents without a receiver is invalid
+        if (!serviceGroups[service]) serviceGroups[service] = [];
+        serviceGroups[service].push({
+          kind: 'appleEvents',
+          bundleId: item.app.bundleId,
+          codeRequirement: item.app.codeRequirement,
+          receivers,
+        });
+        continue;
+      }
+
       if (!serviceGroups[service]) serviceGroups[service] = [];
       serviceGroups[service].push({
+        kind: 'standard',
         bundleId: item.app.bundleId,
         codeRequirement: item.app.codeRequirement,
         authorization: state.authorization,
-        canForceAllow: perm.canForceAllow,
+        authMode: perm.authMode,
       });
     }
   }
@@ -37,13 +88,14 @@ function buildServicesDict(selectedApps: SelectedApp[]): string | null {
   if (Object.keys(serviceGroups).length === 0) return null;
 
   return Object.entries(serviceGroups)
-    .map(([service, apps]) => {
-      const appsXml = apps
-        .map(({ bundleId, codeRequirement, authorization, canForceAllow }) => {
-          const codeReq =
-            codeRequirement || `identifier "${bundleId}" and anchor apple generic`;
-          const auth = canForceAllow ? authorization : 'AllowStandardUserToSetSystemService';
-          return `                    <dict>
+    .map(([service, entries]) => {
+      const appsXml = entries
+        .flatMap((entry) => {
+          if (entry.kind === 'standard') {
+            const codeReq = entry.codeRequirement || defaultCodeRequirement(entry.bundleId);
+            const auth = effectiveAuthorization(entry.authMode, entry.authorization);
+            return [
+              `                    <dict>
                         <key>Authorization</key>
                         <string>${auth}</string>
                         <key>CodeRequirement</key>
@@ -51,10 +103,37 @@ function buildServicesDict(selectedApps: SelectedApp[]): string | null {
                         <key>Comment</key>
                         <string></string>
                         <key>Identifier</key>
-                        <string>${escapeXml(bundleId)}</string>
+                        <string>${escapeXml(entry.bundleId)}</string>
+                        <key>IdentifierType</key>
+                        <string>bundleID</string>
+                    </dict>`,
+            ];
+          }
+          // AppleEvents: one dict per receiver, with AEReceiver* fields.
+          const senderCodeReq =
+            entry.codeRequirement || defaultCodeRequirement(entry.bundleId);
+          return entry.receivers.map((r) => {
+            const receiverCodeReq =
+              r.codeRequirement || defaultCodeRequirement(r.identifier);
+            return `                    <dict>
+                        <key>AEReceiverCodeRequirement</key>
+                        <string>${escapeXml(receiverCodeReq)}</string>
+                        <key>AEReceiverIdentifier</key>
+                        <string>${escapeXml(r.identifier)}</string>
+                        <key>AEReceiverIdentifierType</key>
+                        <string>${r.identifierType}</string>
+                        <key>Authorization</key>
+                        <string>${r.authorization}</string>
+                        <key>CodeRequirement</key>
+                        <string>${escapeXml(senderCodeReq)}</string>
+                        <key>Comment</key>
+                        <string></string>
+                        <key>Identifier</key>
+                        <string>${escapeXml(entry.bundleId)}</string>
                         <key>IdentifierType</key>
                         <string>bundleID</string>
                     </dict>`;
+          });
         })
         .join('\n');
 
@@ -95,7 +174,6 @@ function emptyProfile(name: string, org: string, desc: string, uuid: string): st
 
 /**
  * Generate a complete .mobileconfig XML string.
- * Byte-equivalent with v2 generateMobileconfig() for identical inputs (same UUIDs).
  */
 export function generateMobileconfig(
   selectedApps: SelectedApp[],
