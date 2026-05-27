@@ -2,12 +2,35 @@ export type Authorization = 'Allow' | 'AllowStandardUserToSetSystemService' | 'D
 
 export type DeploymentChannel = 'deviceChannel' | 'userChannel';
 
+/**
+ * Authorization model for a PPPC service, mirroring Jamf's PPPCServices.json
+ * (`denyOnly` + `allowStandardUsers`) flattened into three mutually-exclusive modes.
+ *
+ * - `standard`            — full Allow / Deny / AllowStandardUserToSetSystemService (most services).
+ * - `denyOrStandardUser`  — Apple forbids force-Allow but standard users can self-grant
+ *                           via System Settings (ScreenCapture, ListenEvent).
+ * - `denyOnly`            — only Deny has any effect; other values are silently ignored
+ *                           by macOS (Camera, Microphone).
+ */
+export type AuthMode = 'standard' | 'denyOrStandardUser' | 'denyOnly';
+
+/** Grouping for UI rendering — purely visual, has no effect on the generated profile. */
+export type PermissionCategory =
+  | 'common'
+  | 'hardware'
+  | 'personalData'
+  | 'fileAccess'
+  | 'appControl';
+
 export interface PppcPermission {
   id: string;
   name: string;
   description: string;
   tccService: string;
-  canForceAllow: boolean;
+  authMode: AuthMode;
+  category: PermissionCategory;
+  /** Minimum macOS version required for the service. Informational only. */
+  minMacOS?: string;
   tooltip?: string;
 }
 
@@ -23,9 +46,23 @@ export interface AppInfo {
   codeRequirement: string | null;
 }
 
+/**
+ * One AppleEvents receiver entry: this app may control that target app.
+ * Each receiver becomes a separate dict in the AppleEvents service array,
+ * with its own Authorization.
+ */
+export interface AppleEventReceiver {
+  identifier: string;
+  identifierType: 'bundleID' | 'path';
+  codeRequirement: string;
+  authorization: Authorization;
+}
+
 export interface PermissionState {
   enabled: boolean;
   authorization: Authorization;
+  /** AppleEvents-only — receiver list. Ignored for any other service. */
+  receivers?: AppleEventReceiver[];
 }
 
 export type PermissionsState = Record<string, PermissionState>;

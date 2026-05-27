@@ -2,16 +2,31 @@ import { PPPC_PERMISSIONS } from './permissions';
 import { generateRandomUUID } from './uuid';
 import type {
   AppInfo,
+  Authorization,
+  AuthMode,
   PermissionsState,
   SelectedApp,
 } from './types';
+
+/** Default Authorization value to seed a fresh permission row with. */
+function defaultAuthFor(mode: AuthMode): Authorization {
+  switch (mode) {
+    case 'standard':
+      return 'Allow';
+    case 'denyOrStandardUser':
+      return 'AllowStandardUserToSetSystemService';
+    case 'denyOnly':
+      return 'Deny';
+  }
+}
 
 function createDefaultPermissions(): PermissionsState {
   const perms: PermissionsState = {};
   for (const p of PPPC_PERMISSIONS) {
     perms[p.id] = {
       enabled: false,
-      authorization: 'Allow',
+      authorization: defaultAuthFor(p.authMode),
+      ...(p.tccService === 'AppleEvents' ? { receivers: [] } : {}),
     };
   }
   return perms;
